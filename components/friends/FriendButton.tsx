@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { FiUserPlus, FiCheck, FiClock, FiUserX } from 'react-icons/fi';
+import { FaUserPlus , FaCheck , FaClock } from 'react-icons/fa';
+import { FaUserXmark } from "react-icons/fa6";
 
 interface FriendButtonProps {
   currentUserId: string;
@@ -46,7 +47,7 @@ export default function FriendButton({
       case 'none':
         return {
           text: actionType === 'remove' ? 'Remove' : 'Add Friend',
-          icon: <FiUserPlus size={16} />,
+          icon: <FaUserPlus size={16} />,
           className: actionType === 'remove'
             ? 'bg-red-600 hover:bg-red-700'
             : 'bg-blue-600 hover:bg-blue-700'
@@ -54,25 +55,25 @@ export default function FriendButton({
       case 'pending':
         return {
           text: 'Pending',
-          icon: <FiClock size={16} />,
+          icon: <FaClock size={16} />,
           className: 'bg-zinc-700 hover:bg-zinc-600'
         };
       case 'friend':
         return {
           text: 'Friends',
-          icon: <FiCheck size={16} />,
+          icon: <FaCheck size={16} />,
           className: 'bg-green-600 hover:bg-green-700'
         };
       case 'rejected':
         return {
           text: 'Try Again',
-          icon: <FiUserX size={16} />,
+          icon: <FaUserXmark size={16} />,
           className: 'bg-red-600 hover:bg-red-700'
         };
       default:
         return {
           text: 'Add Friend',
-          icon: <FiUserPlus size={16} />,
+          icon: <FaUserPlus size={16} />,
           className: 'bg-blue-600 hover:bg-blue-700'
         };
     }

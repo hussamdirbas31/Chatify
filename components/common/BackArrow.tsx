@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default function BackArrow() {
   return (
@@ -9,7 +9,7 @@ export default function BackArrow() {
       href="/"
       className="fixed top-6 left-6 z-50 text-muted hover:text-primary transition-colors"
     >
-      <FaArrowLeft  />
+<FaArrowLeftLong />
       <span className="sr-only">Back to home</span>
     </Link>
   );
