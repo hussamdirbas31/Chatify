@@ -41,7 +41,13 @@ export default function RegisterForm() {
     }
 
     try {
-      const result = await register(formData.name, formData.email, formData.password);
+      // Pass formData as a single object (excluding confirmPassword)
+      const result = await register({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        confirmPassword: formData.confirmPassword
+      });
       if (result.success) {
         router.push('/home');
         router.refresh();
@@ -90,7 +96,7 @@ export default function RegisterForm() {
         onChange={handleChange}
         placeholder="••••••••"
         label="Password"
-        icon={<FaLock  />}
+        icon={<FaLock />}
         showPasswordToggle
         onTogglePassword={() => setShowPassword(!showPassword)}
       />
@@ -102,7 +108,7 @@ export default function RegisterForm() {
         onChange={handleChange}
         placeholder="••••••••"
         label="Confirm Password"
-        icon={<FaLock  />}
+        icon={<FaLock />}
       />
 
       <button

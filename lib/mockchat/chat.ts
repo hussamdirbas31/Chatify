@@ -3,8 +3,6 @@ export interface User {
   id: string;
   name: string;
   avatar?: string;
-  status: 'online' | 'offline' | 'away';
-  lastSeen?: Date;
   isBlocked?: boolean;
 }
 
@@ -34,43 +32,36 @@ export interface Chat {
   unreadCount: number;
 }
 
-// Updated mock data to match your system
+// Updated mock data with full privacy (no status or last seen)
 export const mockUsers: User[] = [
   {
     id: 'user1',
     name: 'Ahmed Mohamed',
-    avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
-    status: 'online'
+    avatar: 'https://randomuser.me/api/portraits/men/1.jpg'
   },
   {
     id: 'user2',
     name: 'Sarah Johnson',
-    avatar: 'https://randomuser.me/api/portraits/women/2.jpg',
-    status: 'away',
-    lastSeen: new Date(Date.now() - 3600000) // 1 hour ago
+    avatar: 'https://randomuser.me/api/portraits/women/2.jpg'
   },
   {
     id: 'user3',
-    name: 'Mohammed Ali',
-    status: 'offline',
-    lastSeen: new Date(Date.now() - 86400000) // 1 day ago
+    name: 'Mohammed Ali'
   },
   {
     id: 'user4',
     name: 'Lina Smith',
-    avatar: 'https://randomuser.me/api/portraits/women/3.jpg',
-    status: 'online'
+    avatar: 'https://randomuser.me/api/portraits/women/3.jpg'
   },
   {
     id: 'user5',
     name: 'Omar Khan',
     avatar: 'https://randomuser.me/api/portraits/men/4.jpg',
-    status: 'offline',
-    lastSeen: new Date(Date.now() - 7200000), // 2 hours ago
     isBlocked: true
   }
 ];
 
+// Groups remain unchanged as they don't contain status information
 export const mockGroups: Group[] = [
   {
     id: 'group1',
@@ -92,6 +83,7 @@ export const mockGroups: Group[] = [
   }
 ];
 
+// Chats remain unchanged as they don't contain status information
 export const mockChats: Chat[] = [
   // User chat with Sarah Johnson (user2)
   {

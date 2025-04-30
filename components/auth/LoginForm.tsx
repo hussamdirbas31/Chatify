@@ -33,7 +33,8 @@ export default function LoginForm() {
     }
 
     try {
-      const result = await login(formData.email, formData.password);
+      // Pass formData as a single object
+      const result = await login(formData);
       if (result.success) {
         router.push('/home');
         router.refresh();
@@ -62,7 +63,7 @@ export default function LoginForm() {
         onChange={handleChange}
         placeholder="your@email.com"
         label="Email"
-        icon={<FaEnvelope  />}
+        icon={<FaEnvelope />}
       />
 
       <FormField
@@ -72,7 +73,7 @@ export default function LoginForm() {
         onChange={handleChange}
         placeholder="••••••••"
         label="Password"
-        icon={<FaLock/>}
+        icon={<FaLock />}
         showPasswordToggle
         onTogglePassword={() => setShowPassword(!showPassword)}
       />
