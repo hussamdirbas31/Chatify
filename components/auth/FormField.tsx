@@ -1,52 +1,58 @@
-// components/auth/FormField.tsx
-import { ReactNode } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import React from 'react';
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+interface FormFieldProps {
+  type: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder: string;
+  label: string;
+  icon?: React.ReactNode;
+  showPasswordToggle?: boolean;
+  onTogglePassword?: () => void;
+  className?: string;
+}
 
 export default function FormField({
-  type = 'text',
+  type,
   name,
   value,
   onChange,
   placeholder,
   label,
   icon,
-  showPasswordToggle,
+  showPasswordToggle = false,
   onTogglePassword,
-}: {
-  type?: string;
-  name: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder: string;
-  label: string;
-  icon: ReactNode;
-  showPasswordToggle?: boolean;
-  onTogglePassword?: () => void;
-}) {
+  className = ""
+}: FormFieldProps) {
   return (
-    <div className="space-y-2">
-      <label className="text-sm font-medium text-surface-700">{label}</label>
+    <div className={`space-y-2 ${className}`}>
+      <label htmlFor={name} className="text-sm font-medium text-zinc-300">
+        {label}
+      </label>
       <div className="relative">
-        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted">
-          {icon}
-        </div>
+        {icon && (
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-400">
+            {icon}
+          </div>
+        )}
         <input
           type={type}
+          id={name}
           name={name}
           value={value}
           onChange={onChange}
           placeholder={placeholder}
-          className="w-full pl-10 pr-4 py-2.5 bg-surface border border-muted/20 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors text-surface-900"
-          required
+          className={`w-full bg-zinc-800 border border-zinc-700 rounded-lg py-2 px-4 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors ${icon ? "pl-10" : ""} ${showPasswordToggle ? "pr-10" : ""}`}
         />
         {showPasswordToggle && (
           <button
             type="button"
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-primary"
+            className="absolute inset-y-0 right-0 pr-3 flex items-center text-zinc-400 hover:text-zinc-300 transition-colors"
             onClick={onTogglePassword}
           >
-            {type === 'password' ? <FaEyeSlash /> : <FaEye />}
+            {type === "password" ? <FaEye /> : <FaEyeSlash />}
           </button>
         )}
       </div>

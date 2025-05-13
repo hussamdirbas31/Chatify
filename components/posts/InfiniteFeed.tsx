@@ -44,7 +44,7 @@ export default function InfiniteFeed({
     <div 
       ref={containerRef} 
       className="space-y-6 overflow-y-auto pb-4 scrollbar-thin scrollbar-track-surface scrollbar-thumb-zinc-700"
-      style={{ maxHeight: 'calc(100vh - 300px)' }}
+     
     >
       {initialPosts.length === 0 ? (
         <div className="text-center py-10 text-gray-500">

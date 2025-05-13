@@ -1,17 +1,20 @@
-import AuthPageLayout from '@/components/auth/AuthPageLayout';
 import LoginForm from '@/components/auth/LoginForm';
-import { getCurrentUser } from '@/lib/auth';
-import { redirect } from 'next/navigation';
+import AuthPageLayout from '@/components/auth/AuthPageLayout';
 
-export default async function LoginPage() {
-  const user = await getCurrentUser();
-  if (user) redirect('/profile');
-
+export default function LoginPage({
+  searchParams,
+}: {
+  searchParams: { from?: string; verified?: string; error?: string };
+}) {
   return (
     <AuthPageLayout
-      showImage // ← أضفنا هذا السطر لجعل الصورة تظهر على اليسار
-      title="Welcome Back"
-      subtitle="Sign in to your account"
+      showImage
+      title={searchParams.verified ? 'Email Verified!' : 'Welcome Back'}
+      subtitle={
+        searchParams.verified
+          ? 'Your email has been verified. Please sign in.'
+          : 'Sign in to your account'
+      }
       footerText="Don't have an account?"
       footerLink="Create account"
       footerHref="/auth/register"

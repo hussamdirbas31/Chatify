@@ -1,10 +1,11 @@
-// components/auth/RegisterForm.tsx
 "use client";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { register } from '@/lib/auth';
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from 'firebase/auth';
+import { auth } from '@/lib/firebase/firebase-client';
 import FormField from '@/components/auth/FormField';
 import { FaUser, FaEnvelope, FaLock, FaSpinner } from 'react-icons/fa';
+import AuthFormMessage from '@/components/auth/AuthFormMessage';
 
 export default function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -13,8 +14,8 @@ export default function RegisterForm() {
     password: '',
     confirmPassword: ''
   });
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
@@ -25,49 +26,80 @@ export default function RegisterForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
-      setError('All fields are required');
-      setLoading(false);
+    
+    if (!formData.name || !formData.email || !formData.password) {
+      setMessage({ type: 'error', text: 'All fields are required' });
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
-      setLoading(false);
+      setMessage({ type: 'error', text: 'Passwords do not match' });
       return;
     }
 
+    if (formData.password.length < 6) {
+      setMessage({ type: 'error', text: 'Password should be at least 6 characters' });
+      return;
+    }
+
+    setLoading(true);
+    setMessage(null);
+
     try {
-      // Pass formData as a single object (excluding confirmPassword)
-      const result = await register({
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-        confirmPassword: formData.confirmPassword
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
+
+      await updateProfile(userCredential.user, {
+        displayName: formData.name
       });
-      if (result.success) {
-        router.push('/home');
-        router.refresh();
-      } else {
-        setError(result.error || 'Registration failed. Please try again.');
+
+      await sendEmailVerification(userCredential.user);
+
+      const idToken = await userCredential.user.getIdToken();
+      
+      const response = await fetch('/api/auth/session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ idToken }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Session creation failed');
       }
-    } catch (err) {
-      setError('An unexpected error occurred. Please try again.');
+
+      router.push('/dashboard');
+    } catch (error: any) {
+      let errorMessage = 'Registration failed. Please try again.';
+      
+      switch (error.code || error.message) {
+        case 'auth/email-already-in-use': 
+          errorMessage = 'Email already in use.'; 
+          break;
+        case 'auth/invalid-email': 
+          errorMessage = 'Invalid email address.'; 
+          break;
+        case 'auth/weak-password': 
+          errorMessage = 'Password should be at least 6 characters.'; 
+          break;
+        default:
+          errorMessage = error.message || errorMessage;
+      }
+      
+      setMessage({ type: 'error', text: errorMessage });
     } finally {
       setLoading(false);
     }
   };
-
+  
   return (
     <form onSubmit={handleSubmit} className="space-y-5 w-full">
-      {error && (
-        <div className="p-3 bg-pink-400/10 border border-pink-400/20 rounded-lg text-pink-400 text-sm">
-          {error}
-        </div>
-      )}
+      {message && <AuthFormMessage type={message.type} message={message.text} />}
 
       <FormField
         type="text"

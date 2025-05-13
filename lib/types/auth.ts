@@ -38,6 +38,7 @@ export type PrivateUser = PublicUser & {
 };
 
 export type AuthResponse<T = PublicUser> = {
+  requiresVerification: any;
   success: boolean;
   error?: string;
   user?: T;

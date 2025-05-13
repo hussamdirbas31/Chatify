@@ -17,22 +17,24 @@ export default function AuthForm({
   footerHref: string;
 }) {
   return (
-    <div className="max-w-md w-full mx-auto p-8 bg-white rounded-xl shadow-sm border border-gray-200">
+    <div className="max-w-md w-full mx-auto p-8 bg-zinc-900 rounded-xl shadow-sm border border-zinc-800">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">
-          {title}
+        <h1 className="text-3xl font-bold text-zinc-100">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
+            {title}
+          </span>
         </h1>
-        <p className="text-gray-500 mt-2">{subtitle}</p>
+        <p className="text-zinc-400 mt-2">{subtitle}</p>
       </div>
 
       {children}
 
       <div className="mt-6 text-center">
-        <p className="text-gray-500">
+        <p className="text-zinc-500">
           {footerText}{' '}
           <Link
             href={footerHref}
-            className="text-indigo-600 font-medium hover:underline hover:text-indigo-500 transition-colors"
+            className="text-primary font-medium hover:underline hover:text-secondary transition-colors"
           >
             {footerLink}
           </Link>

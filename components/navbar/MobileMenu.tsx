@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import NavLinks from "./NavLinks";
 import AuthButtons from "./AuthButtons";
 
-export default function MobileMenu({ user }: { user: any }) {
+export default function MobileMenu() {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -34,15 +34,6 @@ export default function MobileMenu({ user }: { user: any }) {
           )}
         </svg>
       </button>
-      {open && (
-        <div className="absolute top-full right-0 left-0 bg-zinc-900/95 backdrop-blur-lg border-t border-zinc-700 shadow-xl p-4 flex flex-col gap-4 z-50">
-
-          {user && <NavLinks onLinkClick={() => setOpen(false)} />}
-          <div className="px-2">
-            <AuthButtons user={user} />
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -1,13 +1,11 @@
-// app/auth/register/page.tsx
-import AuthPageLayout from '@/components/auth/AuthPageLayout';
 import RegisterForm from '@/components/auth/RegisterForm';
-import { getCurrentUser } from '@/lib/auth';
-import { redirect } from 'next/navigation';
+import AuthPageLayout from '@/components/auth/AuthPageLayout';
 
-export default async function RegisterPage() {
-  const user = await getCurrentUser();
-  if (user) redirect('/profile');
-
+export default function RegisterPage({
+  searchParams,
+}: {
+  searchParams: { from?: string; error?: string };
+}) {
   return (
     <AuthPageLayout
       showImage
