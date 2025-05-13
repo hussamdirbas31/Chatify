@@ -1,5 +1,4 @@
 "use client";
-import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth } from '@/lib/firebase/firebase-client';
 import { sendEmailVerification } from 'firebase/auth';
@@ -8,17 +7,6 @@ import AuthPageLayout from '@/components/auth/AuthPageLayout';
 export default function VerifyEmailPage() {
   const router = useRouter();
 
-  useEffect(() => {
-    const user = auth.currentUser;
-    
-    if (user && !user.emailVerified) {
-      sendEmailVerification(user)
-        .then(() => console.log('Verification email sent'))
-        .catch(error => console.error('Error sending verification email:', error));
-    } else if (user?.emailVerified) {
-      router.push('/dashboard');
-    }
-  }, [router]);
 
   return (
     <AuthPageLayout

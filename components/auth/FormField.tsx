@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 interface FormFieldProps {
   type: string;
   name: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
   label: string;
   icon?: React.ReactNode;
@@ -18,7 +16,6 @@ export default function FormField({
   type,
   name,
   value,
-  onChange,
   placeholder,
   label,
   icon,
@@ -42,7 +39,6 @@ export default function FormField({
           id={name}
           name={name}
           value={value}
-          onChange={onChange}
           placeholder={placeholder}
           className={`w-full bg-zinc-800 border border-zinc-700 rounded-lg py-2 px-4 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors ${icon ? "pl-10" : ""} ${showPasswordToggle ? "pr-10" : ""}`}
         />
