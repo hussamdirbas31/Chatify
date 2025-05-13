@@ -1,7 +1,5 @@
 "use client";
 import { useRouter } from 'next/navigation';
-import { auth } from '@/lib/firebase/firebase-client';
-import { sendEmailVerification } from 'firebase/auth';
 import AuthPageLayout from '@/components/auth/AuthPageLayout';
 
 export default function VerifyEmailPage() {
@@ -21,7 +19,6 @@ export default function VerifyEmailPage() {
           Please check your inbox and click on the verification link to complete your registration.
         </p>
         <button
-          onClick={() => auth.currentUser && sendEmailVerification(auth.currentUser)}
           className="text-indigo-400 hover:text-indigo-300 transition-colors"
         >
           Resend Verification Email
