@@ -25,7 +25,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const decodedToken = await adminAuth.verifyIdToken(idToken);
+    // Removed unused decodedToken variable (wasn't being used)
+    await adminAuth.verifyIdToken(idToken);
     const expiresIn = 60 * 60 * 24 * 14 * 1000; // 14 days
 
     const sessionCookie = await adminAuth.createSessionCookie(idToken, { expiresIn });
@@ -50,22 +51,25 @@ export async function POST(request: Request) {
         },
       }
     );
-  } catch (error: any) {
+  } catch (error: unknown) { // Changed from 'any' to 'unknown'
     console.error('Session creation error:', error);
 
-    let errorCode = 'AUTH_ERROR';
+    const errorCode = 'AUTH_ERROR';
     let errorMessage = 'Failed to create session';
-    let statusCode = 401;
+    const statusCode = 401; // Changed to const since it's never reassigned
 
-    if (error.code === 'auth/id-token-expired') {
-      errorCode = 'TOKEN_EXPIRED';
-      errorMessage = 'The provided token has expired';
-    } else if (error.code === 'auth/argument-error') {
-      errorCode = 'INVALID_TOKEN';
-      errorMessage = 'Invalid token provided';
-    } else if (error.code === 'auth/session-cookie-expired') {
-      errorCode = 'SESSION_EXPIRED';
-      errorMessage = 'Session has expired';
+    if (error instanceof Error && 'code' in error) {
+      switch (error.code) {
+        case 'auth/id-token-expired':
+          errorMessage = 'The provided token has expired';
+          break;
+        case 'auth/argument-error':
+          errorMessage = 'Invalid token provided';
+          break;
+        case 'auth/session-cookie-expired':
+          errorMessage = 'Session has expired';
+          break;
+      }
     }
 
     return NextResponse.json(
@@ -73,7 +77,9 @@ export async function POST(request: Request) {
         success: false,
         error: errorCode,
         message: errorMessage,
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined,
+        details: process.env.NODE_ENV === 'development' && error instanceof Error 
+          ? error.message 
+          : undefined,
       },
       { status: statusCode }
     );

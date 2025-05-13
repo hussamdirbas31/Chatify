@@ -1,6 +1,5 @@
 import ForgotPasswordForm from "@/components/auth/ForgotPasswordForm";
 import AuthPageLayout from "@/components/auth/AuthPageLayout";
-import { redirect } from "next/navigation";
 
 export default async function ForgotPasswordPage() {
   return (
