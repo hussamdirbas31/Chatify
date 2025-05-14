@@ -4,18 +4,15 @@ import ChatMessages from '@/components/chats/ChatMessages'
 import ChatInput from '@/components/chats/ChatInput'
 import { Metadata } from 'next'
 
-interface ChatPageProps {
+interface Params {
   params: {
     userId: string
   }
-  searchParams?: {
-    [key: string]: string | string[] | undefined
-  }
 }
 
-export default function ChatPage({ params }: ChatPageProps) {
+export default function ChatPage({ params }: Params) {
   const userId = Array.isArray(params.userId) ? params.userId[0] : params.userId
-  const currentUserId = 'user1'
+  const currentUserId = 'user1' // يمكنك تغييره حسب المستخدم الحالي
 
   const chat = mockChats.find(c => c.id === userId) || {
     id: userId,
@@ -46,7 +43,7 @@ export default function ChatPage({ params }: ChatPageProps) {
         />
       </div>
 
-      {/* Messages - with padding for mobile */}
+      {/* Messages */}
       <div className="flex-1 overflow-y-auto p-2 sm:p-4">
         <ChatMessages 
           messages={chat.messages} 
@@ -54,7 +51,7 @@ export default function ChatPage({ params }: ChatPageProps) {
         />
       </div>
 
-      {/* Input - with safe area for mobile */}
+      {/* Input */}
       <div className="flex-shrink-0 pb-4 sm:pb-0 px-2 sm:px-4">
         <ChatInput chatId={chat.id} />
       </div>
@@ -62,7 +59,9 @@ export default function ChatPage({ params }: ChatPageProps) {
   )
 }
 
-export async function generateMetadata({ params }: ChatPageProps): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: { params: { userId: string } }
+): Promise<Metadata> {
   return {
     title: `Chat ${params.userId}`,
   }
