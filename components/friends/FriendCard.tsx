@@ -13,7 +13,6 @@ interface User {
 interface FriendCardProps {
   user: User;
   showMutualFriends?: boolean;
-  actionType?: 'add' | 'remove' | 'respond';
 }
 
 export default function FriendCard({ 
@@ -24,8 +23,7 @@ export default function FriendCard({
     friendshipStatus: 'none',
     mutualFriends: 3
   }, 
-  showMutualFriends = true,
-  actionType = 'add'
+  showMutualFriends = true
 }: FriendCardProps) {
   return (
     <div className="p-4 bg-zinc-900/60 rounded-xl border border-zinc-800 flex items-center justify-between hover:bg-zinc-900/80 transition-colors">
@@ -42,10 +40,7 @@ export default function FriendCard({
       </div>
 
       <div className="ml-4 flex-shrink-0">
-        <FriendButton
-          status={user.friendshipStatus}
-          actionType={actionType}
-        />
+        <FriendButton status={user.friendshipStatus} />
       </div>
     </div>
   );

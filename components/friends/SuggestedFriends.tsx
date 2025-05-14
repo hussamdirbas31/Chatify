@@ -37,7 +37,6 @@ export default function SuggestedFriends() {
             key={user.id}
             user={user}
             showMutualFriends
-            actionType="add"
           />
         ))}
       </div>

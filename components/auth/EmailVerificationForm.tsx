@@ -1,5 +1,5 @@
 "use client";
-import { FaEnvelope, FaSpinner, FaArrowRight } from 'react-icons/fa'; // Removed unused FaCheck
+import { FaEnvelope, FaArrowRight } from 'react-icons/fa';
 
 export default function EmailVerificationForm({ email }: { email: string }) {
   return (
@@ -12,7 +12,7 @@ export default function EmailVerificationForm({ email }: { email: string }) {
           <div>
             <h3 className="font-medium text-zinc-100">Verify your email</h3>
             <p className="text-sm text-zinc-400 mt-1">
-              We&apos;ve sent a verification link to {email} {/* Fixed apostrophe */}
+              We&apos;ve sent a verification link to {email}
             </p>
           </div>
         </div>

@@ -3,24 +3,19 @@ import { FaUserPlus, FaCheck, FaClock } from 'react-icons/fa';
 import { FaUserXmark } from "react-icons/fa6";
 
 type FriendshipStatus = 'none' | 'pending' | 'friend' | 'rejected';
-type FriendActionType = 'add' | 'remove' | 'respond';
 
 interface FriendButtonProps {
   status?: FriendshipStatus;
-  actionType?: FriendActionType;
 }
 
 export default function FriendButton({
-  status = 'none',
-  actionType = 'add'
+  status = 'none'
 }: FriendButtonProps) {
   const buttonConfigs = {
     none: {
-      text: actionType === 'remove' ? 'Remove' : 'Add Friend',
+      text: 'Add Friend',
       icon: <FaUserPlus size={16} />,
-      className: actionType === 'remove' 
-        ? 'bg-red-600 hover:bg-red-700' 
-        : 'bg-blue-600 hover:bg-blue-700'
+      className: 'bg-blue-600 hover:bg-blue-700'
     },
     pending: {
       text: 'Pending',

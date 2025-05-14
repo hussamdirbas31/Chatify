@@ -18,7 +18,6 @@ export default function CurrentFriends() {
             <FriendCard 
               key={friend.id} 
               user={friend} 
-              actionType="remove" 
             />
           ))}
         </div>
