@@ -1,17 +1,18 @@
+'use client'; // Add this directive at the top
+
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 interface AvatarProps {
   src?: string;
   name?: string;
-  size?: 'sm' | 'md' | 'lg'; // Optional size prop
+  size?: 'sm' | 'md' | 'lg';
 }
 
 export default function Avatar({ src, name = '', size = 'md' }: AvatarProps) {
   const [initials, setInitials] = useState('??');
   const [hasError, setHasError] = useState(false);
 
-  // Calculate initials safely
   useEffect(() => {
     if (name) {
       const calculatedInitials = name
