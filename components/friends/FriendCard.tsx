@@ -9,7 +9,6 @@ interface User {
   avatar?: string;
   friendshipStatus: 'none' | 'pending' | 'friend' | 'rejected';
   mutualFriends?: number;
-  // Add any other user properties you need
 }
 
 interface FriendCardProps {
@@ -19,17 +18,19 @@ interface FriendCardProps {
 }
 
 export default function FriendCard({ 
-  user, 
-  showMutualFriends = false,
+  user = {
+    id: '1',
+    name: 'John Doe',
+    avatar: '/default-avatar.jpg',
+    friendshipStatus: 'none',
+    mutualFriends: 3
+  }, 
+  showMutualFriends = true,
   actionType = 'add'
 }: FriendCardProps) {
   return (
     <div className="p-4 bg-zinc-900/60 rounded-xl border border-zinc-800 flex items-center justify-between hover:bg-zinc-900/80 transition-colors">
-      <Link 
-        href={`/dashboard/users/${user.id}`} 
-        className="flex items-center flex-1 min-w-0"
-        aria-label={`View ${user.name}'s profile`}
-      >
+      <div className="flex items-center flex-1 min-w-0">
         <Avatar src={user.avatar} name={user.name} size="md" />
         <div className="ml-4 min-w-0">
           <h3 className="text-zinc-100 font-medium truncate">{user.name}</h3>
@@ -39,11 +40,11 @@ export default function FriendCard({
             </p>
           )}
         </div>
-      </Link>
+      </div>
 
       <div className="ml-4 flex-shrink-0">
         <FriendButton
-          initialStatus={user.friendshipStatus}
+          status={user.friendshipStatus}
           actionType={actionType}
         />
       </div>

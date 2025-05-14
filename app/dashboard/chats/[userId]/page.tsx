@@ -2,7 +2,6 @@ import { mockUsers, mockGroups, mockChats } from '@/lib/mockchat/chat'
 import ChatHeader from '@/components/chats/ChatHeader'
 import ChatMessages from '@/components/chats/ChatMessages'
 import ChatInput from '@/components/chats/ChatInput'
-import { User, Group, Chat } from '@/lib/mockchat/chat'
 
 export default function ChatPage({ params }: { params: { userId: string } }) {
   const userId = Array.isArray(params.userId) ? params.userId[0] : params.userId
