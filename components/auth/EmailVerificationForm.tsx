@@ -1,26 +1,18 @@
 "use client";
-
-import AuthFormMessage from '@/components/auth/AuthFormMessage';
-import { FaEnvelope, FaArrowRight, FaCheck } from 'react-icons/fa';
+import { FaEnvelope, FaSpinner, FaArrowRight } from 'react-icons/fa'; // Removed unused FaCheck
 
 export default function EmailVerificationForm({ email }: { email: string }) {
   return (
     <div className="space-y-5 w-full">
-      {/* Message display - to be controlled by parent */}
-      <AuthFormMessage type="success" message="Sample success message" />
-
       <div className="p-4 bg-zinc-800/50 border border-zinc-700 rounded-lg">
         <div className="flex items-center gap-3">
           <div className="bg-indigo-500/10 p-2 rounded-full">
-            {/* Default to unverified state icon */}
             <FaEnvelope className="text-indigo-400" />
           </div>
           <div>
-            <h3 className="font-medium text-zinc-100">
-              Verify your email
-            </h3>
+            <h3 className="font-medium text-zinc-100">Verify your email</h3>
             <p className="text-sm text-zinc-400 mt-1">
-              We've sent a verification link to {email}
+              We&apos;ve sent a verification link to {email} {/* Fixed apostrophe */}
             </p>
           </div>
         </div>

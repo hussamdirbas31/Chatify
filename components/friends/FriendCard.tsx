@@ -1,6 +1,5 @@
 'use client';
 import Avatar from '@/components/common/Avatar';
-import Link from 'next/link';
 import FriendButton from './FriendButton';
 
 interface User {
