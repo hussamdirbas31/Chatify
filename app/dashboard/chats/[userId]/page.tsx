@@ -8,6 +8,9 @@ interface ChatPageProps {
   params: {
     userId: string
   }
+  searchParams?: {
+    [key: string]: string | string[] | undefined
+  }
 }
 
 export default function ChatPage({ params }: ChatPageProps) {
@@ -59,7 +62,6 @@ export default function ChatPage({ params }: ChatPageProps) {
   )
 }
 
-// Optional: Generate metadata for the page
 export async function generateMetadata({ params }: ChatPageProps): Promise<Metadata> {
   return {
     title: `Chat ${params.userId}`,
