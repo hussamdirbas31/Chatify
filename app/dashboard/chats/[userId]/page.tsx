@@ -2,8 +2,15 @@ import { mockUsers, mockGroups, mockChats } from '@/lib/mockchat/chat'
 import ChatHeader from '@/components/chats/ChatHeader'
 import ChatMessages from '@/components/chats/ChatMessages'
 import ChatInput from '@/components/chats/ChatInput'
+import { Metadata } from 'next'
 
-export default function ChatPage({ params }: { params: { userId: string } }) {
+interface ChatPageProps {
+  params: {
+    userId: string
+  }
+}
+
+export default function ChatPage({ params }: ChatPageProps) {
   const userId = Array.isArray(params.userId) ? params.userId[0] : params.userId
   const currentUserId = 'user1'
 
@@ -50,4 +57,11 @@ export default function ChatPage({ params }: { params: { userId: string } }) {
       </div>
     </div>
   )
+}
+
+// Optional: Generate metadata for the page
+export async function generateMetadata({ params }: ChatPageProps): Promise<Metadata> {
+  return {
+    title: `Chat ${params.userId}`,
+  }
 }
