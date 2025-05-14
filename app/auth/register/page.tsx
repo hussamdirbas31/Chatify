@@ -1,20 +1,17 @@
-import RegisterForm from '@/components/auth/RegisterForm';
+import LoginForm from '@/components/auth/LoginForm';
 import AuthPageLayout from '@/components/auth/AuthPageLayout';
 
-export default function RegisterPage({
-}: {
-  searchParams: { from?: string; error?: string };
-}) {
+export default function LoginPage() {
   return (
     <AuthPageLayout
       showImage
-      title="Create Account"
-      subtitle="Fill in your details to get started"
-      footerText="Already have an account?"
-      footerLink="Sign In"
-      footerHref="/auth/login"
+      title="Welcome Back"
+      subtitle="Sign in to your account"
+      footerText="Don't have an account?"
+      footerLink="Create account"
+      footerHref="/auth/register"
     >
-      <RegisterForm />
+      <LoginForm />
     </AuthPageLayout>
   );
 }
