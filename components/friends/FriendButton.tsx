@@ -1,11 +1,9 @@
 'use client';
 import { useState } from 'react';
-import { FaUserPlus , FaCheck , FaClock } from 'react-icons/fa';
+import { FaUserPlus, FaCheck, FaClock } from 'react-icons/fa';
 import { FaUserXmark } from "react-icons/fa6";
 
 interface FriendButtonProps {
-  currentUserId: string;
-  targetUserId: string;
   initialStatus: string;
   actionType?: 'add' | 'remove' | 'respond';
 }
@@ -17,14 +15,12 @@ interface ButtonConfig {
 }
 
 export default function FriendButton({
-  currentUserId,
-  targetUserId,
   initialStatus,
   actionType = 'add'
 }: FriendButtonProps) {
   const [status, setStatus] = useState(initialStatus);
 
-  const handleAction = () => {
+  const handleAction = async () => {
     let newStatus = status;
 
     if (actionType === 'remove') {
@@ -38,8 +34,14 @@ export default function FriendButton({
       }
     }
 
-    setStatus(newStatus);
-    // In real app, call API here to update status in DB
+    try {
+      // TODO: Replace with actual API call
+      // await updateFriendshipStatus(currentUserId, targetUserId, newStatus);
+      setStatus(newStatus);
+    } catch (error) {
+      console.error('Failed to update friendship status:', error);
+      // Optionally show error to user
+    }
   };
 
   const getButtonConfig = (): ButtonConfig => {
@@ -85,6 +87,7 @@ export default function FriendButton({
     <button
       onClick={handleAction}
       className={`px-4 py-2 rounded-full flex items-center gap-2 text-white transition-colors ${className}`}
+      aria-label={text}
     >
       {icon}
       <span>{text}</span>

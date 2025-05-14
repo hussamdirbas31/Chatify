@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import NavLinks from "./NavLinks";
-import AuthButtons from "./AuthButtons";
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);

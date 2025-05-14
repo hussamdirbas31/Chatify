@@ -2,9 +2,30 @@ import ChatSearch from './ChatSearch'
 import UserList from './UserList'
 import GroupList from './GroupList'
 
+interface User {
+  id: string
+  name: string
+  avatar?: string
+  lastMessage?: string
+  lastMessageTime?: string
+  isOnline?: boolean
+  isBlocked: boolean
+  unreadCount?: number
+}
+
+interface Group {
+  id: string
+  name: string
+  avatar?: string
+  lastMessage?: string
+  lastMessageTime?: string
+  membersCount?: number
+  unreadCount?: number
+}
+
 interface ChatSidebarProps {
-  users: any[]
-  groups: any[]
+  users: User[]
+  groups: Group[]
 }
 
 export default function ChatSidebar({ users, groups }: ChatSidebarProps) {
@@ -12,12 +33,11 @@ export default function ChatSidebar({ users, groups }: ChatSidebarProps) {
   
   return (
     <div className="w-80 border-r border-zinc-800 flex flex-col bg-surface/80 backdrop-blur-xl">
-      
       <ChatSearch />
       
       <div className="flex-1 overflow-y-auto p-2 scrollbar-thin scrollbar-track-surface/50 scrollbar-thumb-primary/30">
         <UserList users={filteredUsers} />
-        <GroupList groups={groups} />
+        <GroupList groups={[]}  />
       </div>
     </div>
   )

@@ -1,23 +1,51 @@
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+
 interface AvatarProps {
   src?: string;
-  name?: string; // Make name optional
+  name?: string;
+  size?: 'sm' | 'md' | 'lg'; // Optional size prop
 }
 
-export default function Avatar({ src, name = '' }: AvatarProps) {
-  // Safely handle the name splitting
-  const initials = name
-    ? name
-        .split(" ")
+export default function Avatar({ src, name = '', size = 'md' }: AvatarProps) {
+  const [initials, setInitials] = useState('??');
+  const [hasError, setHasError] = useState(false);
+
+  // Calculate initials safely
+  useEffect(() => {
+    if (name) {
+      const calculatedInitials = name
+        .split(' ')
+        .filter(part => part.length > 0)
         .map(n => n[0])
-        .join("")
+        .join('')
         .slice(0, 2)
-        .toUpperCase()
-    : '??'; // Default initials if name is not provided
+        .toUpperCase();
+      setInitials(calculatedInitials || '??');
+    }
+  }, [name]);
+
+  const sizeClasses = {
+    sm: 'w-8 h-8 text-xs',
+    md: 'w-10 h-10 text-sm',
+    lg: 'w-12 h-12 text-base'
+  };
 
   return (
-    <div className="w-10 h-10 rounded-full bg-[#6366f1] flex items-center justify-center text-white text-sm font-semibold overflow-hidden">
-      {src ? (
-        <img src={src} alt={name || 'User avatar'} className="w-full h-full object-cover" />
+    <div 
+      className={`rounded-full bg-indigo-500 flex items-center justify-center text-white font-semibold overflow-hidden ${sizeClasses[size]}`}
+      aria-label={name || 'User avatar'}
+    >
+      {src && !hasError ? (
+        <Image
+          src={src}
+          alt={name || 'User avatar'}
+          width={size === 'sm' ? 32 : size === 'md' ? 40 : 48}
+          height={size === 'sm' ? 32 : size === 'md' ? 40 : 48}
+          className="w-full h-full object-cover"
+          onError={() => setHasError(true)}
+          quality={80}
+        />
       ) : (
         initials
       )}

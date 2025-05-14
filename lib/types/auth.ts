@@ -9,6 +9,7 @@ export type Comment = {
   userId: string;
   content: string;
   createdAt: string;
+  updatedAt?: string;
 };
 
 export type Post = {
@@ -16,9 +17,11 @@ export type Post = {
   userId: string;
   content: string;
   createdAt: string;
+  updatedAt?: string;
   images?: PostImage[];
   likes?: string[];
   comments?: Comment[];
+  isPublic?: boolean;
 };
 
 export type PublicUser = {
@@ -29,25 +32,33 @@ export type PublicUser = {
   bio?: string;
   followers?: string[];
   following?: string[];
+  createdAt?: string;
+  updatedAt?: string;
+  isVerified?: boolean;
 };
 
 export type PrivateUser = PublicUser & {
   password: string;
   resetToken?: string;
   resetTokenExpiry?: Date;
+  verificationToken?: string;
+  verificationTokenExpiry?: Date;
 };
 
 export type AuthResponse<T = PublicUser> = {
-  requiresVerification: any;
+  requiresVerification: boolean;
   success: boolean;
   error?: string;
   user?: T;
   token?: string;
+  refreshToken?: string;
+  expiresIn?: number;
 };
 
 export type LoginParams = {
   email: string;
   password: string;
+  rememberMe?: boolean;
 };
 
 export type RegisterParams = {
@@ -55,6 +66,17 @@ export type RegisterParams = {
   email: string;
   password: string;
   confirmPassword?: string;
+  acceptTerms?: boolean;
+};
+
+export type PasswordResetParams = {
+  token: string;
+  password: string;
+  confirmPassword: string;
+};
+
+export type EmailVerificationParams = {
+  token: string;
 };
 
 export type CookieOptions = {
@@ -64,4 +86,5 @@ export type CookieOptions = {
   path: string;
   maxAge?: number;
   expires?: Date;
+  domain?: string;
 };

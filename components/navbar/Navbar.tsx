@@ -1,6 +1,5 @@
 import Logo from "./Logo";
 import MobileMenu from "./MobileMenu";
-import NavLinks from "./NavLinks";
 import AuthButtons from "./AuthButtons";
 
 export default async function Navbar() {

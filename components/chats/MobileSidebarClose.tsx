@@ -1,13 +1,9 @@
-// components/chats/MobileSidebarClose.tsx
 'use client'
 
 import { FiX } from 'react-icons/fi'
 import Button from '@/components/common/Button'
-import { useRouter } from 'next/navigation'
 
 export default function MobileSidebarClose() {
-  const router = useRouter()
-  
   return (
     <div className="p-2 md:hidden flex justify-end">
       <Button 

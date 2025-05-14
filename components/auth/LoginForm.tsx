@@ -11,13 +11,30 @@ export default function LoginForm() {
     password: '',
   });
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
   const [showPassword, setShowPassword] = useState(false);
 
-  return (
-    <form  className="space-y-5 w-full">
-      {message && <AuthFormMessage type={message.type} message={message.text} />}
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // This is where you would connect to your authentication API
+    setLoading(true);
+    console.log('Login form submitted:', formData);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-5 w-full">
       <FormField
         type="email"
         name="email"
@@ -49,7 +66,7 @@ export default function LoginForm() {
 
       <button
         type="submit"
-        disabled={loading}
+        disabled={loading || !formData.email || !formData.password}
         className="w-full bg-gradient-to-r from-indigo-500 to-pink-500 text-white py-3 px-4 rounded-lg font-medium hover:opacity-90 transition-opacity disabled:opacity-50 flex justify-center items-center gap-2"
       >
         {loading ? (

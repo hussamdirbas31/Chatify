@@ -17,7 +17,6 @@ interface Comment {
 
 export default function CommentsModal({
   onClose, 
-  postId, 
   userId, 
   content, 
   timestamp, 

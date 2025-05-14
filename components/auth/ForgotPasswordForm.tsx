@@ -11,7 +11,7 @@ export default function ForgotPasswordForm() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
 
-
+ 
   return (
     <form  className="space-y-5 w-full">
       {message && <AuthFormMessage type={message.type} message={message.text} />}
@@ -27,7 +27,7 @@ export default function ForgotPasswordForm() {
 
       <button
         type="submit"
-        disabled={loading}
+        disabled={loading || !email}
         className="w-full bg-gradient-to-r from-indigo-500 to-pink-500 text-white py-3 px-4 rounded-lg font-medium hover:opacity-90 transition-opacity disabled:opacity-50 flex justify-center items-center gap-2"
       >
         {loading ? (

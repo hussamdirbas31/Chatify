@@ -1,10 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function AuthButtons() {
-  const router = useRouter();
 
   return (
     <div className="flex gap-3">

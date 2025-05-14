@@ -1,9 +1,7 @@
 "use client";
-import { useRouter } from 'next/navigation';
 import AuthPageLayout from '@/components/auth/AuthPageLayout';
 
 export default function VerifyEmailPage() {
-  const router = useRouter();
 
 
   return (

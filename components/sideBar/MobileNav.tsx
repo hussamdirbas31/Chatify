@@ -4,63 +4,84 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef, memo } from 'react';
 import LogoutButton from '@/components/common/LogoutButton';
 
-const UserIcon = memo(({ active }: { active: boolean }) => (
-  <svg className={`w-6 h-6 ${active ? 'text-primary' : 'text-muted'}`}
-    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-  </svg>
-));
+const UserIcon = memo(function UserIcon({ active }: { active: boolean }) {
+  return (
+    <svg className={`w-6 h-6 ${active ? 'text-primary' : 'text-muted'}`}
+      fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+    </svg>
+  );
+});
+UserIcon.displayName = 'UserIcon';
 
-const ChatIcon = memo(({ active }: { active: boolean }) => (
-  <svg className={`w-6 h-6 ${active ? 'text-primary' : 'text-muted'}`}
-    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-  </svg>
-));
+const ChatIcon = memo(function ChatIcon({ active }: { active: boolean }) {
+  return (
+    <svg className={`w-6 h-6 ${active ? 'text-primary' : 'text-muted'}`}
+      fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+    </svg>
+  );
+});
+ChatIcon.displayName = 'ChatIcon';
 
-const FeedIcon = memo(({ active }: { active: boolean }) => (
-  <svg className={`w-6 h-6 ${active ? 'text-primary' : 'text-muted'}`}
-    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-      d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-  </svg>
-));
+const FeedIcon = memo(function FeedIcon({ active }: { active: boolean }) {
+  return (
+    <svg className={`w-6 h-6 ${active ? 'text-primary' : 'text-muted'}`}
+      fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+    </svg>
+  );
+});
+FeedIcon.displayName = 'FeedIcon';
 
-const SettingsIcon = memo(({ active }: { active: boolean }) => (
-  <svg className={`w-6 h-6 ${active ? 'text-primary' : 'text-muted'}`}
-    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-  </svg>
-));
+const SettingsIcon = memo(function SettingsIcon({ active }: { active: boolean }) {
+  return (
+    <svg className={`w-6 h-6 ${active ? 'text-primary' : 'text-muted'}`}
+      fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>
+  );
+});
+SettingsIcon.displayName = 'SettingsIcon';
 
-const FriendsIcon = memo(({ active }: { active: boolean }) => (
-  <svg className={`w-6 h-6 ${active ? 'text-primary' : 'text-muted'}`}
-    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-      d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m8-1.13a4 4 0 10-8 0 4 4 0 008 0zM23 7a4 4 0 11-8 0 4 4 0 018 0z" />
-  </svg>
-));
+const FriendsIcon = memo(function FriendsIcon({ active }: { active: boolean }) {
+  return (
+    <svg className={`w-6 h-6 ${active ? 'text-primary' : 'text-muted'}`}
+      fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m8-1.13a4 4 0 10-8 0 4 4 0 008 0zM23 7a4 4 0 11-8 0 4 4 0 018 0z" />
+    </svg>
+  );
+});
+FriendsIcon.displayName = 'FriendsIcon';
 
-const AddFriendsIcon = memo(({ active }: { active: boolean }) => (
-  <svg className={`w-6 h-6 ${active ? 'text-primary' : 'text-muted'}`}
-    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-      d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-  </svg>
-));
+const AddFriendsIcon = memo(function AddFriendsIcon({ active }: { active: boolean }) {
+  return (
+    <svg className={`w-6 h-6 ${active ? 'text-primary' : 'text-muted'}`}
+      fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+    </svg>
+  );
+});
+AddFriendsIcon.displayName = 'AddFriendsIcon';
 
-const MoreIcon = memo(({ active }: { active: boolean }) => (
-  <svg className={`w-6 h-6 ${active ? 'text-primary' : 'text-muted'}`}
-    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-      d="M6 12h.01M12 12v.01M18 12h.01" />
-  </svg>
-));
+const MoreIcon = memo(function MoreIcon({ active }: { active: boolean }) {
+  return (
+    <svg className={`w-6 h-6 ${active ? 'text-primary' : 'text-muted'}`}
+      fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+        d="M6 12h.01M12 12v.01M18 12h.01" />
+    </svg>
+  );
+});
+MoreIcon.displayName = 'MoreIcon';
 
 export default function MobileNav() {
   const pathname = usePathname();

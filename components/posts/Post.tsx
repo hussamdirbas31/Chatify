@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { formatDistanceToNow } from 'date-fns';
-import { FaRegHeart, FaHeart, FaRegComment, FaEllipsisH } from 'react-icons/fa';
+import { FaRegHeart, FaHeart, FaRegComment} from 'react-icons/fa';
 import { FiShare2, FiBookmark, FiMoreHorizontal, FiLock } from 'react-icons/fi';
 import { Post as PostType } from '@/lib/types/types';
 import { mockUsers } from '@/lib/mockData';

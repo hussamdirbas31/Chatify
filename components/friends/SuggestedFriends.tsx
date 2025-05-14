@@ -1,25 +1,32 @@
+// components/friends/SuggestedFriends.tsx
 'use client';
 import { mockUsers, getCurrentUser } from '@/lib/mockData';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import FriendCard from '@/components/friends/FriendCard';
+import { PublicUser } from '@/lib/types/types';
 
 export default function SuggestedFriends() {
-  const currentUser = getCurrentUser();
-  const [suggestions, setSuggestions] = useState<typeof mockUsers>([]);
+  const currentUser = useMemo(() => getCurrentUser(), []);
+  const [suggestions, setSuggestions] = useState<PublicUser[]>([]);
 
-  // Get random suggestions based on mutual friends
   useEffect(() => {
-    const mutualFriendsBased = mockUsers
-      .filter(user =>
-        user.id !== currentUser.id &&
-        !currentUser.following.includes(user.id) &&
-        user.mutualFriends > 0
-      )
-      .sort(() => 0.5 - Math.random())
-      .slice(0, 5);
+    if (!currentUser) return;
 
-    setSuggestions(mutualFriendsBased);
-  }, []);
+    const getSuggestedFriends = () => {
+      return mockUsers
+        .filter(user => 
+          user.id !== currentUser.id &&
+          !currentUser.following?.includes(user.id) &&
+          (user.mutualFriends || 0) > 0
+        )
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 5);
+    };
+
+    setSuggestions(getSuggestedFriends());
+  }, [currentUser]);
+
+  if (suggestions.length === 0) return null;
 
   return (
     <div className="mt-8">

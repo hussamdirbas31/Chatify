@@ -1,4 +1,3 @@
-// app/dashboard/users/[userId]/page.tsx
 import { notFound } from 'next/navigation';
 import { mockUsers, mockPosts, getCurrentUser } from '@/lib/mockData';
 import ProfileHeader from '@/components/profile/AvatarSection';
@@ -35,14 +34,14 @@ export default function UserProfilePage({ params }: UserProfilePageProps) {
 
       <div className="space-y-6 h-full">
         <h2 className="text-xl font-semibold text-text-primary">
-          {user.name}'s Posts
+          {user.name}&apos;s Posts
         </h2>
         {userPosts.length > 0 ? (
           <FeedList posts={userPosts} />
         ) : (
           <div className="text-center py-12">
             <p className="text-text-secondary">
-              {user.name} hasn't posted anything visible to you
+              {user.name} hasn&apos;t posted anything visible to you
             </p>
           </div>
         )}

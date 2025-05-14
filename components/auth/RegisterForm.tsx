@@ -1,6 +1,5 @@
 "use client";
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import FormField from '@/components/auth/FormField';
 import { FaUser, FaEnvelope, FaLock, FaSpinner } from 'react-icons/fa';
 import AuthFormMessage from '@/components/auth/AuthFormMessage';
@@ -13,14 +12,30 @@ export default function RegisterForm() {
     confirmPassword: ''
   });
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // This is where you would connect to your registration API
+    setLoading(true);
+    console.log('Registration form submitted:', formData);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   return (
-    <form  className="space-y-5 w-full">
-      {message && <AuthFormMessage type={message.type} message={message.text} />}
-
+    <form onSubmit={handleSubmit} className="space-y-5 w-full">
       <FormField
         type="text"
         name="name"
@@ -61,7 +76,7 @@ export default function RegisterForm() {
 
       <button
         type="submit"
-        disabled={loading}
+        disabled={loading || !formData.name || !formData.email || !formData.password || !formData.confirmPassword}
         className="w-full bg-gradient-to-r from-indigo-500 to-pink-500 text-white py-3 px-4 rounded-lg font-medium hover:opacity-90 transition-opacity disabled:opacity-50 flex justify-center items-center gap-2"
       >
         {loading ? (
