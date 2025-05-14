@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import FormField from '@/components/auth/FormField';
 import { FaEnvelope, FaLock, FaSpinner } from 'react-icons/fa';
-import AuthFormMessage from '@/components/auth/AuthFormMessage';
 import Link from 'next/link';
 
 export default function LoginForm() {
@@ -13,16 +12,23 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // This is where you would connect to your authentication API
-    setLoading(true);
-    console.log('Login form submitted:', formData);
     
-    // Simulate API call
-    setTimeout(() => {
+    if (!formData.email || !formData.password) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+      // TODO: Replace with actual API call
+      // const response = await loginUser(formData);
+      // Handle successful login
+    } catch (error) {
+      console.error('Login failed:', error);
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

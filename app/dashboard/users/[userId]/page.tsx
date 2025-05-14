@@ -26,8 +26,6 @@ export default function UserProfilePage({ params }: UserProfilePageProps) {
       
       <div className="flex justify-end">
         <FriendButton 
-          currentUserId={currentUser.id}
-          targetUserId={user.id}
           initialStatus={user.friendshipStatus}
         />
       </div>

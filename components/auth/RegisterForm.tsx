@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import FormField from '@/components/auth/FormField';
 import { FaUser, FaEnvelope, FaLock, FaSpinner } from 'react-icons/fa';
-import AuthFormMessage from '@/components/auth/AuthFormMessage';
 
 export default function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -14,16 +13,24 @@ export default function RegisterForm() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // This is where you would connect to your registration API
-    setLoading(true);
-    console.log('Registration form submitted:', formData);
     
-    // Simulate API call
-    setTimeout(() => {
+    if (formData.password !== formData.confirmPassword) {
+      console.error("Passwords don't match");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      // TODO: Replace with actual API call
+      // const response = await registerUser(formData);
+      // Handle successful registration
+    } catch (error) {
+      console.error('Registration failed:', error);
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

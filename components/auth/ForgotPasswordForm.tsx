@@ -11,9 +11,47 @@ export default function ForgotPasswordForm() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
 
- 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email) {
+      setMessage({ type: 'error', text: 'Please enter your email address' });
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setMessage(null);
+      
+      // TODO: Replace with actual API call
+      // const response = await sendPasswordResetEmail(email);
+      // if (response.success) {
+        setMessage({ 
+          type: 'success', 
+          text: 'Password reset link sent to your email!' 
+        });
+      // } else {
+      //   setMessage({ 
+      //     type: 'error', 
+      //     text: response.error || 'Failed to send reset link' 
+      //   });
+      // }
+    } catch (error) {
+      setMessage({ 
+        type: 'error', 
+        text: 'An error occurred. Please try again later.' 
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
   return (
-    <form  className="space-y-5 w-full">
+    <form onSubmit={handleSubmit} className="space-y-5 w-full">
       {message && <AuthFormMessage type={message.type} message={message.text} />}
 
       <FormField

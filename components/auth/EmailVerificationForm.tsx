@@ -9,17 +9,30 @@ export default function EmailVerificationForm({ email }: { email: string }) {
   const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
   const [verified, setVerified] = useState(false);
 
-  const handleResend = () => {
-    // This should be connected to your API
-    setLoading(true);
-    setTimeout(() => {
+  const handleResend = async () => {
+    try {
+      setLoading(true);
+      // TODO: Replace with actual API call
+      // const response = await resendVerificationEmail(email);
+      // if (response.success) {
+        setMessage({ type: 'success', text: 'Verification email sent successfully!' });
+      // }
+    } catch (error) {
+      setMessage({ type: 'error', text: 'Failed to send verification email' });
+    } finally {
       setLoading(false);
-      setMessage({ type: 'success', text: 'Verification email sent successfully!' });
-    }, 1000);
+    }
+  };
+
+  const handleVerify = () => {
+    // This would normally be handled by the verification link
+    // For demo purposes, we'll simulate verification after resend
+    setVerified(true);
+    setMessage({ type: 'success', text: 'Email verified successfully!' });
   };
 
   const handleLogout = () => {
-    // This should be connected to your API
+    // TODO: Implement actual logout
     console.log('Logout clicked');
   };
 
@@ -43,11 +56,15 @@ export default function EmailVerificationForm({ email }: { email: string }) {
         </div>
       </div>
 
-      {!verified && (
+      {!verified ? (
         <div className="space-y-3">
           <button
             type="button"
-            onClick={handleResend}
+            onClick={() => {
+              handleResend();
+              // For demo purposes only - remove in production
+              setTimeout(handleVerify, 2000);
+            }}
             disabled={loading}
             className="w-full bg-gradient-to-r from-indigo-500/80 to-purple-500/80 text-zinc-100 py-2 px-4 rounded-lg font-medium hover:opacity-90 transition-opacity disabled:opacity-50 flex justify-center items-center gap-2"
           >
@@ -73,6 +90,10 @@ export default function EmailVerificationForm({ email }: { email: string }) {
           >
             Sign Out
           </button>
+        </div>
+      ) : (
+        <div className="text-center py-4">
+          <p className="text-green-400">You can now proceed to your dashboard</p>
         </div>
       )}
     </div>
